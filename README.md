@@ -19,6 +19,7 @@ spoken aloud via Piper TTS, and use an LLM to normalize text for natural speech.
 - **HFC Female is the default voice.** A US English female Piper voice, with
   Amy, Lessac, Ryan, and Bryce also available.
 - **Speed control.** `/tts-speed` selects 0.8x–1.3x. The default is **1.1x**.
+- **Style control.** `/tts-style` chooses `auto` (adaptive), `summary`, or `full`.
 - **Portable playback.** Uses `play` (sox), `paplay`, `aplay`, or `ffplay`.
 - **Raw-text fallback.** If the normalization LLM is unavailable, TTS speaks
   stripped response text instead of failing.
@@ -365,7 +366,8 @@ up or how responses are spoken.
       "options": {
         "sttPrompt": "~/.config/opencode/stt-prompt.md",
         "ttsAutoPrompt": "~/.config/opencode/tts-auto-prompt.md",
-        "ttsManualPrompt": "~/.config/opencode/tts-manual-prompt.md"
+        "ttsManualPrompt": "~/.config/opencode/tts-manual-prompt.md",
+        "ttsSummaryPrompt": "~/.config/opencode/tts-summary-prompt.md"
       }
     }
   ]
@@ -375,6 +377,7 @@ up or how responses are spoken.
 - `sttPrompt` _(optional)_ - system prompt for cleaning up whisper transcriptions
 - `ttsAutoPrompt` _(optional)_ - system prompt for auto-speaking assistant responses
 - `ttsManualPrompt` _(optional)_ - system prompt for manually reading responses aloud
+- `ttsSummaryPrompt` _(optional)_ - system prompt for the `summary` TTS style
 
 If a path is not set, the built-in default prompt is used.
 
@@ -411,6 +414,7 @@ then `s`.
 | `/tts-stop`  | `escape`   | Stop playback                          |
 | `/tts-voice` |            | Select TTS voice                       |
 | `/tts-speed` |            | Select TTS speaking speed (0.8x–1.3x)  |
+| `/tts-style` |            | Select TTS style: auto, summary, full  |
 
 ## How it works
 
@@ -453,6 +457,21 @@ explicitly ask it to speak. `/tts-mode` cycles through three states:
 
 `/tts-speak` works in both `manual` and `auto` modes. `/tts-stop` (`escape`)
 stops any playback.
+
+### TTS styles
+
+`/tts-style` chooses how the assistant text is spoken:
+
+- **auto** (default) - adaptive: narrate simple answers, summarize code-heavy
+  responses, and briefly notify for confirmations. Automatic announcements use
+  the adaptive prompt; `/tts-speak` reads the full prose.
+- **summary** - always give a short summary of what changed and why, skipping
+  code and implementation details.
+- **full** - read all prose faithfully and skip code blocks.
+
+`summary` and `full` apply to both automatic announcements and `/tts-speak`.
+Without an LLM endpoint, the local fallbacks are used: `summary` speaks the
+first three sentences, and `full` speaks stripped response text.
 
 ## Contributing
 

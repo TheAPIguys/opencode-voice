@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { fallbackSpeechText } from "../lib/speech-text.js";
+import { fallbackSpeechText, fallbackSummaryText } from "../lib/speech-text.js";
 
 test("removes fenced code and markdown punctuation", () => {
   const text = fallbackSpeechText(
@@ -14,4 +14,9 @@ test("removes fenced code and markdown punctuation", () => {
 test("unwraps links and removes images", () => {
   const text = fallbackSpeechText("See [the docs](https://example.test) ![shot](image.png) now.");
   assert.equal(text, "See the docs now.");
+});
+
+test("summarizes fallback text to the first three sentences", () => {
+  const text = "First sentence. Second sentence. Third sentence. Fourth sentence.";
+  assert.equal(fallbackSummaryText(text), "First sentence. Second sentence. Third sentence.");
 });

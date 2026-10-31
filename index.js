@@ -27,6 +27,7 @@
 //   /tts-stop (escape)   - stop playback
 //   /tts-voice            - select TTS voice
 //   /tts-speed            - select TTS speaking speed
+//   /tts-style            - select TTS style (auto, summary, full)
 //
 // V2 notes:
 //   - This is the `./tui` entry of the package. Import it from cli.json plugins.
@@ -259,6 +260,7 @@ export default Plugin.define({
       stt: loadPromptFile(options?.sttPrompt, logger, "STT"),
       ttsAuto: loadPromptFile(options?.ttsAutoPrompt, logger, "TTS auto"),
       ttsManual: loadPromptFile(options?.ttsManualPrompt, logger, "TTS manual"),
+      ttsSummary: loadPromptFile(options?.ttsSummaryPrompt, logger, "TTS summary"),
     };
 
     const kv = createStorage(context);
