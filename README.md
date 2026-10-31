@@ -376,7 +376,7 @@ then `s`.
 | Command      | Keybind    | Description                            |
 | ------------ | ---------- | -------------------------------------- |
 | `/tts-speak` | `leader+s` | Read last response aloud (manual/auto) |
-| `/tts-mode`  | `leader+v` | Cycle TTS mode: off -> manual -> auto  |
+| `/tts-mode`  | `leader+v` | Cycle TTS mode: manual -> auto -> off  |
 | `/tts-stop`  | `escape`   | Stop playback                          |
 | `/tts-voice` |            | Select TTS voice                       |
 

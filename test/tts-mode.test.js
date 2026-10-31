@@ -12,7 +12,7 @@ test("normalizes stored and legacy TTS modes to manual by default", () => {
   assert.equal(normalizeTtsMode("bogus"), "manual");
 });
 
-test("cycles off -> manual -> auto -> off", () => {
+test("cycles manual -> auto -> off -> manual", () => {
   assert.equal(nextTtsMode("off"), "manual");
   assert.equal(nextTtsMode("manual"), "auto");
   assert.equal(nextTtsMode("auto"), "off");
