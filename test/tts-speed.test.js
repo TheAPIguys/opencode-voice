@@ -4,11 +4,11 @@ import test from "node:test";
 import { normalizeTtsSpeed, speedToLengthScale, ttsSpeedLabel } from "../lib/tts-speed.js";
 
 test("normalizes speed values and clamps the range", () => {
-  assert.equal(normalizeTtsSpeed(undefined), 1);
+  assert.equal(normalizeTtsSpeed(undefined), 1.1);
   assert.equal(normalizeTtsSpeed("1.1"), 1.1);
   assert.equal(normalizeTtsSpeed(0.1), 0.5);
   assert.equal(normalizeTtsSpeed(5), 2);
-  assert.equal(normalizeTtsSpeed("nope"), 1);
+  assert.equal(normalizeTtsSpeed("nope"), 1.1);
 });
 
 test("converts speed to Piper length scale", () => {

@@ -1,27 +1,37 @@
-[![CI](https://github.com/renjfk/opencode-voice/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/renjfk/opencode-voice/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![npm](https://img.shields.io/npm/v/@renjfk/opencode-voice)](https://www.npmjs.com/package/@renjfk/opencode-voice)
-[![Downloads](https://img.shields.io/npm/dm/@renjfk/opencode-voice)](https://www.npmjs.com/package/@renjfk/opencode-voice)
 
-# opencode-voice
+# opencode-voice (personal fork)
 
-Speech-to-text and text-to-speech plugin for [OpenCode](https://opencode.ai/).
+This is **TheAPIguys' personal fork** of
+[renjfk/opencode-voice](https://github.com/renjfk/opencode-voice), customized for
+my daily OpenCode workflow. It is not an official release and is not published
+to npm.
 
-Record voice prompts with local whisper transcription, hear assistant responses
-spoken aloud via Piper TTS. Both directions use an LLM to normalize text for
-natural speech (fixing homophones, splitting camelCase identifiers, summarizing
-code-heavy responses, etc.).
+Upstream is speech-to-text and text-to-speech for [OpenCode](https://opencode.ai/):
+record voice prompts with local whisper transcription, hear assistant responses
+spoken aloud via Piper TTS, and use an LLM to normalize text for natural speech.
 
-> [!NOTE]
-> **This is a fork.** It adds a `manual` TTS mode and is not published to npm.
-> Point `cli.json` at a local clone instead of the npm package; see
-> [Test local plugin in OpenCode](#test-local-plugin-in-opencode).
+## What is different in this fork
+
+- **Manual-first TTS.** TTS starts in `manual` mode: it is on, but stays silent
+  until you press `leader+s` (`/tts-speak`). `/tts-mode` cycles
+  `manual -> auto -> off`.
+- **HFC Female is the default voice.** A US English female Piper voice, with
+  Amy, Lessac, Ryan, and Bryce also available.
+- **Speed control.** `/tts-speed` selects 0.8x–1.3x. The default is **1.1x**.
+- **Portable playback.** Uses `play` (sox), `paplay`, `aplay`, or `ffplay`.
+- **Raw-text fallback.** If the normalization LLM is unavailable, TTS speaks
+  stripped response text instead of failing.
+
+Install this fork from a local clone rather than the npm package; see
+[Test local plugin in OpenCode](#test-local-plugin-in-opencode).
 
 ## Install
 
 Add to `~/.config/opencode/cli.json` (create it if it doesn't exist; this is a
-TUI-only plugin, so the server-side `opencode.json` cannot load it). You must
-configure at least `endpoint` and `model`:
+TUI-only plugin, so the server-side `opencode.json` cannot load it). Point
+`package` at your local clone, for example `/home/daniel/Documents/tts-fork`.
+For the best speech normalization, also set `endpoint` and `model`:
 
 > [!NOTE]
 > **Clobbering default keybinds.** This plugin uses `ctrl+r` for voice
@@ -38,7 +48,7 @@ configure at least `endpoint` and `model`:
   },
   "plugins": [
     {
-      "package": "@renjfk/opencode-voice",
+      "package": "/path/to/opencode-voice",
       "options": {
         "endpoint": "https://api.anthropic.com/v1",
         "model": "claude-haiku-4-5",
@@ -49,10 +59,11 @@ configure at least `endpoint` and `model`:
 }
 ```
 
-### Refresh cached plugin after updates
+### Refresh after updates
 
-If OpenCode keeps using an older published version of the plugin after an
-update, clear the cached package and restart OpenCode:
+This fork is loaded from a local clone, so restart OpenCode after pulling
+changes. If you previously installed the npm package and OpenCode keeps using
+it, clear the cached package first:
 
 ```bash
 rm -rf ~/.cache/opencode/packages/@renjfk/
@@ -225,7 +236,7 @@ Playback uses `play` (sox) when available, then falls back to `paplay`,
 `aplay`, or `ffplay`.
 
 Built-in voices (select with `/tts-voice`). Speaking speed is adjusted with
-`/tts-speed` from 0.8x to 1.3x; the default is 1.0x.
+`/tts-speed` from 0.8x to 1.3x; the default is 1.1x.
 
 | ID       | Voice               | Quality |
 | -------- | ------------------- | ------- |
@@ -267,7 +278,7 @@ of staying silent.
 {
   "plugins": [
     {
-      "package": "@renjfk/opencode-voice",
+      "package": "/path/to/opencode-voice",
       "options": {
         "endpoint": "https://api.anthropic.com/v1",
         "model": "claude-haiku-4-5",
@@ -284,7 +295,7 @@ For unauthenticated local endpoints (e.g. Ollama):
 {
   "plugins": [
     {
-      "package": "@renjfk/opencode-voice",
+      "package": "/path/to/opencode-voice",
       "options": {
         "endpoint": "http://localhost:11434/v1",
         "model": "llama3.2"
@@ -323,7 +334,7 @@ plugin on a machine without whisper-cpp installed.
 {
   "plugins": [
     {
-      "package": "@renjfk/opencode-voice",
+      "package": "/path/to/opencode-voice",
       "options": {
         "sttEndpoint": "http://127.0.0.1:8000/v1",
         "sttModel": "whisper-large-v3-turbo",
@@ -350,7 +361,7 @@ up or how responses are spoken.
 {
   "plugins": [
     {
-      "package": "@renjfk/opencode-voice",
+      "package": "/path/to/opencode-voice",
       "options": {
         "sttPrompt": "~/.config/opencode/stt-prompt.md",
         "ttsAutoPrompt": "~/.config/opencode/tts-auto-prompt.md",
@@ -474,7 +485,7 @@ repo path, not the npm package name:
 
 ```json
 {
-  "plugins": [{ "package": "/Users/your-user/opencode-voice" }]
+  "plugins": [{ "package": "/path/to/opencode-voice" }]
 }
 ```
 
