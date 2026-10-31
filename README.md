@@ -221,6 +221,8 @@ pip install piper-tts
 ```
 
 The plugin looks for `piper` on your `PATH` (`~/.local/bin` is typically on `PATH`).
+Playback uses `play` (sox) when available, then falls back to `paplay`,
+`aplay`, or `ffplay`.
 
 Download a voice model to `~/.local/share/piper-voices/`:
 
@@ -234,14 +236,16 @@ curl -L -o ~/.local/share/piper-voices/en_US-ryan-high.onnx.json \
 
 ### LLM endpoint
 
-An OpenAI-compatible LLM endpoint is required for text normalization. For
+An OpenAI-compatible LLM endpoint is recommended for text normalization. For
 speech-to-text it cleans up whisper output (punctuation, filler words, software
 engineering homophones). For text-to-speech it converts markdown into natural
 spoken text.
 
 Configure your endpoint via plugin options. Any OpenAI-compatible
 endpoint works (Anthropic, OpenAI, Ollama, vLLM, LM Studio, etc.). The `apiKeyEnv`
-option is optional - omit it for unauthenticated endpoints like Ollama.
+option is optional - omit it for unauthenticated endpoints like Ollama. If the
+endpoint is unreachable, TTS falls back to stripped raw response text instead
+of staying silent.
 
 ```json
 {
@@ -402,7 +406,7 @@ then `s`.
    text is sent to the LLM for speech normalization
 2. The LLM decides how to handle it: narrate simple answers, summarize
    code-heavy responses, or briefly notify for confirmations
-3. Piper synthesizes speech locally, piped through sox for playback
+3. Piper synthesizes speech locally, piped through sox/paplay/aplay/ffplay for playback
 
 ### TTS modes
 
