@@ -224,7 +224,8 @@ The plugin looks for `piper` on your `PATH` (`~/.local/bin` is typically on `PAT
 Playback uses `play` (sox) when available, then falls back to `paplay`,
 `aplay`, or `ffplay`.
 
-Built-in voices (select with `/tts-voice`):
+Built-in voices (select with `/tts-voice`). Speaking speed is adjusted with
+`/tts-speed` from 0.8x to 1.3x; the default is 1.0x.
 
 | ID       | Voice               | Quality |
 | -------- | ------------------- | ------- |
@@ -398,6 +399,7 @@ then `s`.
 | `/tts-mode`  | `leader+v` | Cycle TTS mode: manual -> auto -> off  |
 | `/tts-stop`  | `escape`   | Stop playback                          |
 | `/tts-voice` |            | Select TTS voice                       |
+| `/tts-speed` |            | Select TTS speaking speed (0.8x–1.3x)  |
 
 ## How it works
 

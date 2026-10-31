@@ -26,6 +26,7 @@
 //   /tts-mode (leader+v) - cycle TTS mode: manual -> auto -> off
 //   /tts-stop (escape)   - stop playback
 //   /tts-voice            - select TTS voice
+//   /tts-speed            - select TTS speaking speed
 //
 // V2 notes:
 //   - This is the `./tui` entry of the package. Import it from cli.json plugins.
