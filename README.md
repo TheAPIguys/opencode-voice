@@ -228,21 +228,21 @@ Built-in voices (select with `/tts-voice`):
 
 | ID       | Voice               | Quality |
 | -------- | ------------------- | ------- |
-| `amy`    | US female (default) | medium  |
+| `hfc`    | US female (default) | medium  |
+| `amy`    | US female           | medium  |
 | `lessac` | US female           | high    |
-| `hfc`    | US female           | medium  |
 | `ryan`   | US male             | high    |
 | `bryce`  | US male             | medium  |
 
 Download the model and its `.json` file to `~/.local/share/piper-voices/`.
-For the default Amy voice:
+For the default HFC Female voice:
 
 ```bash
 mkdir -p ~/.local/share/piper-voices
-curl -L -o ~/.local/share/piper-voices/en_US-amy-medium.onnx \
-  https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/amy/medium/en_US-amy-medium.onnx
-curl -L -o ~/.local/share/piper-voices/en_US-amy-medium.onnx.json \
-  https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/amy/medium/en_US-amy-medium.onnx.json
+curl -L -o ~/.local/share/piper-voices/en_US-hfc_female-medium.onnx \
+  https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/hfc_female/medium/en_US-hfc_female-medium.onnx
+curl -L -o ~/.local/share/piper-voices/en_US-hfc_female-medium.onnx.json \
+  https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/hfc_female/medium/en_US-hfc_female-medium.onnx.json
 ```
 
 Other voices use the same pattern under
