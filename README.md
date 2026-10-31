@@ -368,12 +368,12 @@ outside the list can be set via the `sttLanguage` plugin option.
 The `leader` key in OpenCode is `ctrl+x`. So `leader+s` means press `ctrl+x`
 then `s`.
 
-| Command      | Keybind    | Description              |
-| ------------ | ---------- | ------------------------ |
-| `/tts-speak` | `leader+s` | Read last response aloud |
-| `/tts-mode`  | `leader+v` | Toggle auto TTS on/off   |
-| `/tts-stop`  | `escape`   | Stop playback            |
-| `/tts-voice` |            | Select TTS voice         |
+| Command      | Keybind    | Description                            |
+| ------------ | ---------- | -------------------------------------- |
+| `/tts-speak` | `leader+s` | Read last response aloud (manual/auto) |
+| `/tts-mode`  | `leader+v` | Cycle TTS mode: off -> manual -> auto  |
+| `/tts-stop`  | `escape`   | Stop playback                          |
+| `/tts-voice` |            | Select TTS voice                       |
 
 ## How it works
 
@@ -399,13 +399,22 @@ then `s`.
    code-heavy responses, or briefly notify for confirmations
 3. Piper synthesizes speech locally, piped through sox for playback
 
-### Auto TTS
+### TTS modes
 
-When enabled (`/tts-mode`), the plugin automatically speaks:
+TTS starts in **manual** mode, so it stays silent until you explicitly ask it
+to speak. `/tts-mode` cycles through three states:
 
-- Assistant responses when the session's turn finishes (succeeds or is interrupted)
-- Permission requests
-- Questions that need your answer
+- **off** - TTS is disabled, including `/tts-speak`.
+- **manual** - TTS is on, but nothing plays until you run `/tts-speak`
+  (`leader+s`). This is the mode to use when multiple sessions are running and
+  you only want to hear the one you choose.
+- **auto** - the plugin automatically speaks:
+  - Assistant responses when the session's turn finishes (succeeds or is interrupted)
+  - Permission requests
+  - Questions that need your answer
+
+`/tts-speak` works in both `manual` and `auto` modes. `/tts-stop` (`escape`)
+stops any playback.
 
 ## Contributing
 

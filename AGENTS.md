@@ -15,8 +15,9 @@ Single TUI plugin exported from `index.js` with logic split into `lib/`.
 - Configuration uses `options` (static) and the storage-backed `api.kv`
   (runtime). No dotfile I/O.
 - Auto TTS triggers on `session.execution.started` / `succeeded` /
-  `interrupted` events and only speaks for the session the TUI is showing.
-  V1's `session.status` / `session.idle` events have no producer in V2.
+  `interrupted` events only in `auto` mode and only speaks for the session the
+  TUI is showing. `manual` mode stays silent until `/tts-speak`; `off` disables
+  playback. V1's `session.status` / `session.idle` events have no producer in V2.
 - Diagnostics go through `lib/logger.js`, which is a no-op unless
   `OPENCODE_VOICE_DEBUG` is set (V2 removed the `client.app.log` sink).
 - No build step. Plain ESM JavaScript, shipped as-is.

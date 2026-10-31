@@ -23,7 +23,7 @@
 //   /stt-language         - select transcription language
 //   /stt-mic              - select microphone
 //   /tts-speak (leader+s)- read last response aloud
-//   /tts-mode (leader+v) - toggle auto TTS on/off
+//   /tts-mode (leader+v) - cycle TTS mode: off -> manual -> auto
 //   /tts-stop (escape)   - stop playback
 //   /tts-voice            - select TTS voice
 //
