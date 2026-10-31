@@ -224,15 +224,30 @@ The plugin looks for `piper` on your `PATH` (`~/.local/bin` is typically on `PAT
 Playback uses `play` (sox) when available, then falls back to `paplay`,
 `aplay`, or `ffplay`.
 
-Download a voice model to `~/.local/share/piper-voices/`:
+Built-in voices (select with `/tts-voice`):
+
+| ID       | Voice               | Quality |
+| -------- | ------------------- | ------- |
+| `amy`    | US female (default) | medium  |
+| `lessac` | US female           | high    |
+| `hfc`    | US female           | medium  |
+| `ryan`   | US male             | high    |
+| `bryce`  | US male             | medium  |
+
+Download the model and its `.json` file to `~/.local/share/piper-voices/`.
+For the default Amy voice:
 
 ```bash
 mkdir -p ~/.local/share/piper-voices
-curl -L -o ~/.local/share/piper-voices/en_US-ryan-high.onnx \
-  https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/ryan/high/en_US-ryan-high.onnx
-curl -L -o ~/.local/share/piper-voices/en_US-ryan-high.onnx.json \
-  https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/ryan/high/en_US-ryan-high.onnx.json
+curl -L -o ~/.local/share/piper-voices/en_US-amy-medium.onnx \
+  https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/amy/medium/en_US-amy-medium.onnx
+curl -L -o ~/.local/share/piper-voices/en_US-amy-medium.onnx.json \
+  https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/amy/medium/en_US-amy-medium.onnx.json
 ```
+
+Other voices use the same pattern under
+`https://huggingface.co/rhasspy/piper-voices/resolve/main/en/`; see the
+[Piper voices list](https://huggingface.co/rhasspy/piper-voices) for paths.
 
 ### LLM endpoint
 
