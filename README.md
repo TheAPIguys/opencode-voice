@@ -12,6 +12,11 @@ spoken aloud via Piper TTS. Both directions use an LLM to normalize text for
 natural speech (fixing homophones, splitting camelCase identifiers, summarizing
 code-heavy responses, etc.).
 
+> [!NOTE]
+> **This is a fork.** It adds a `manual` TTS mode and is not published to npm.
+> Point `cli.json` at a local clone instead of the npm package; see
+> [Test local plugin in OpenCode](#test-local-plugin-in-opencode).
+
 ## Install
 
 Add to `~/.config/opencode/cli.json` (create it if it doesn't exist; this is a
@@ -401,8 +406,9 @@ then `s`.
 
 ### TTS modes
 
-TTS starts in **manual** mode, so it stays silent until you explicitly ask it
-to speak. `/tts-mode` cycles through three states:
+New installs start in **manual** mode, and the old `on` value migrates to
+manual, so upgrading stops automatic playback. TTS stays silent until you
+explicitly ask it to speak. `/tts-mode` cycles through three states:
 
 - **off** - TTS is disabled, including `/tts-speak`.
 - **manual** - TTS is on, but nothing plays until you run `/tts-speak`
